@@ -3,9 +3,8 @@
 
 The Cricket Score Predictor is an MLOps-driven application designed to predict the final score of a cricket team during a match based on real-time parameters. I developed this project using Python, Flask, and Docker to ensure it is both lightweight and scalable. The core of the system uses historical match data to make accurate predictions, with a model achieving 77% prediction accuracy.
 
-The application is built with custom exception handling and logging to improve reliability and debugging efficiency. I deployed it on AWS and Azure to ensure seamless access and scalability in different environments. This project showcases the power of machine learning in sports analytics and highlights my expertise in building robust, cloud-deployed ML applications.
+The application is built with custom exception handling and logging to improve reliability and debugging efficiency.
 
-I also wrote detailed blogs throught the process - https://medium.com/@adipusk/list/end-to-end-mlops-project-c51ceb050829
 ## Demo
 
 Insert gif or link to demo
