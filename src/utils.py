@@ -8,7 +8,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.preprocessing import LabelEncoder
 
 
-from src.exception import CustomException
+from .exception import CustomException
 
 
 def save_object(file_path, obj):

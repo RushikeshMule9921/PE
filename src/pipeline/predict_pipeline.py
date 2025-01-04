@@ -1,9 +1,9 @@
 import sys
 import pandas as pd
 
-from src.exception import CustomException
-from src.utils import load_obj
-from src.utils import imputation
+from ..exception import CustomException
+from ..utils import load_obj
+from ..utils import imputation
 
 
 class PredictionPipeline:

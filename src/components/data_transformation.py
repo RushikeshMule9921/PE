@@ -7,13 +7,14 @@ import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 
+from ..exception import CustomException
+import logging
+from ..utils import save_object
+from ..utils import DataPrep
+from ..utils import Encoding
+
 from src.exception import CustomException
-from src.logger import logging
-from src.utils import save_object
-from src.utils import DataPrep
-from src.utils import Encoding
-
-
+from src.utils import save_object, DataPrep, Encoding
 @dataclass
 class DataTransformationConfig:
     preprocessor_ob_path = os.path.join('artifacts','preprocessor.pkl')
