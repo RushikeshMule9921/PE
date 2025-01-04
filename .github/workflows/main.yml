@@ -34,7 +34,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.9921248683 }}" | docker login -u "rushikeshmule9921" --password-stdin
+        run: echo "9921248683" | docker login -u "rushikeshmule9921" --password-stdin
 
       - name: Build, Tag, and Push Image to Docker Hub
         env:
@@ -47,4 +47,3 @@ jobs:
           # Push the image to Docker Hub
           docker push $DOCKER_REPO:$IMAGE_TAG
           echo "::set-output name=image::$DOCKER_REPO:$IMAGE_TAG"
-
