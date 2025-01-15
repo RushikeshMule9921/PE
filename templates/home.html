@@ -5,159 +5,234 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cricket Score Predictor</title>
     <style>
-
         body {
             font-family: Arial, sans-serif;
-            background-image: url('https://as1.ftcdn.net/v2/jpg/01/97/33/46/1000_F_197334647_aClfAIrrc0RPrsC8V52RN4MkzNmQCysc.jpg'); /* Path to your cricket stadium image */
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
             margin: 0;
-            padding: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
         }
-        
+
         .container {
             max-width: 600px;
-            margin: 20px auto;
-            padding: 30px;
-            background-color: rgba(117, 209, 117, 0.8); 
-            border-radius: 60px;
-            box-shadow: 0 0 20px rgba(241, 44, 44, 0.947);
-            text-align: center; 
-            font-weight: bold;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        
+
         h1 {
             text-align: center;
-            color: #ebf4e9;
-            font-weight: bolder;
-            
+            color: #1a73e8;
+            margin-bottom: 30px;
         }
-        
+
         form {
-            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
-        
+
         label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bolder;
-            font-size: 20px;
-            color: #222;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 5px;
         }
-        
-        select, input[type="number"] {
-            width: calc(100% - 22px); 
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #410cf0;
-            border-radius: 50px;
+
+        select, input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
             box-sizing: border-box;
-            font-size: 20px;
         }
-        select {
-            padding-left: 30px; 
-            border: 1px solid #ccc; 
-            border-radius: 5px; 
-            background-color: #fff; 
-            color: #333; 
-            font-size: 20px; 
-            appearance: none; 
-            -webkit-appearance: none; 
-            -moz-appearance: none;
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #1a73e8;
         }
-        
-        
-        option {
-            background-repeat: no-repeat;
-            background-size: 20px; 
-            background-position: 5px center; 
-            padding-left: 30px; 
-        }
-        
-        
-        option:checked {
-            background-color: #4CAF50; 
-            color: #fff; 
-        }
-        
-        
-        button[type="submit"] {
-            width: 50%;
+
+        button {
+            background-color: #1a73e8;
+            color: white;
             padding: 10px;
-            background-color: #bbeb1e;
-            color: #141313;
-            border: #ccc;
-            font-size: large;
-            font-weight: bold;
-            border-radius: 50px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            margin-top: 10px;
         }
-        
-        button[type="submit"]:hover {
-            background-color: #d23111;
+
+        button:hover {
+            background-color: #1557b0;
         }
-        
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        input.invalid {
+            border-color: red;
+            background-color: #fff0f0;
+        }
+
+        .error.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
-
-    <header>
-        <h1>Cricket Score Predictor</h1>
-    </header>
-
     <div class="container">
-        <form action="{{ url_for('predict_datapoint')}}" method="post">
-            <label for="battingteam">Select Batting Team:</label>
-            <select name="battingteam" required>
-                <option value="ENG" >England</option>
-                <option value="NZ" >New Zealand</option>
-                <option value="PAK" >Pakistan</option>
-                <option value="NED">Netherlands</option>
-                <option value="AFG">Afghanistan</option>
-                <option value="BAN">Bangladesh</option>
-                <option value="SA">South Africa</option>
-                <option value="SL">Sri Lanka</option>
-                <option value="AUS">Australia</option>
-                <option value="IND">India</option>
-                <option value="WI">West Indies</option>
-                <option value="IRE">Ireland</option>
-            </select>
+        <h1>Cricket Score Predictor</h1>
+        <form action="{{ url_for('predict_datapoint')}}" method="post" onsubmit="return validateForm()">
+            <div>
+                <label for="battingteam">Batting Team</label>
+                <select name="battingteam" required>
+                    <option value="">Select team</option>
+                    <option value="ENG">England</option>
+                    <option value="NZ">New Zealand</option>
+                    <option value="PAK">Pakistan</option>
+                    <option value="NED">Netherlands</option>
+                    <option value="AFG">Afghanistan</option>
+                    <option value="BAN">Bangladesh</option>
+                    <option value="SA">South Africa</option>
+                    <option value="SL">Sri Lanka</option>
+                    <option value="AUS">Australia</option>
+                    <option value="IND">India</option>
+                    <option value="WI">West Indies</option>
+                    <option value="IRE">Ireland</option>
+                </select>
+            </div>
 
-            <label for="bowlingteam">Select Bowling Team:</label>
-            <select name="bowlingteam" required>
-                <option value="ENG">England</option>
-            <option value="NZ">New Zealand</option>
-            <option value="PAK">Pakistan</option>
-            <option value="NED">Netherlands</option>
-            <option value="AFG">Afghanistan</option>
-            <option value="BAN">Bangladesh</option>
-            <option value="SA">South Africa</option>
-            <option value="SL">Sri Lanka</option>
-            <option value="AUS">Australia</option>
-            <option value="IND">India</option>
-            <option value="WI">West Indies</option>
-            <option value="IRE">Ireland</option>
-            </select>
+            <div>
+                <label for="bowlingteam">Bowling Team</label>
+                <select name="bowlingteam" required>
+                    <option value="">Select team</option>
+                    <option value="ENG">England</option>
+                    <option value="NZ">New Zealand</option>
+                    <option value="PAK">Pakistan</option>
+                    <option value="NED">Netherlands</option>
+                    <option value="AFG">Afghanistan</option>
+                    <option value="BAN">Bangladesh</option>
+                    <option value="SA">South Africa</option>
+                    <option value="SL">Sri Lanka</option>
+                    <option value="AUS">Australia</option>
+                    <option value="IND">India</option>
+                    <option value="WI">West Indies</option>
+                    <option value="IRE">Ireland</option>
+                </select>
+            </div>
 
-            <label for="overNumber">Over Number:</label>
-            <input type="number" id="overNumber" name="overNumber" required>
+            <div>
+                <label for="overNumber">Over Number</label>
+                <input type="number" id="overNumber" name="overNumber" min="0" max="50" required>
+                <span class="error" id="overError">Please enter a number between 0 and 50</span>
+            </div>
 
-            <label for="runsTillOver">Runs Scored Till That Over:</label>
-            <input type="number" id="runsTillOver" name="runsTillOver" required>
+            <div>
+                <label for="runsTillOver">Runs Scored Till That Over</label>
+                <input type="number" id="runsTillOver" name="runsTillOver" min="0" required>
+            </div>
 
-            <label for="wicketsTillOver">Wickets Taken Till That Over:</label>
-            <input type="number" id="wicketsTillOver" name="wicketsTillOver" required>
+            <div>
+                <label for="wicketsTillOver">Wickets Taken Till That Over</label>
+                <input type="number" id="wicketsTillOver" name="wicketsTillOver" min="0" max="10" required>
+                <span class="error" id="wicketsError">Please enter a number between 0 and 10</span>
+            </div>
 
-            <label for="runsLast5overs">Runs in Last 5 Overs:</label>
-            <input type="number" id="runsLast5overs" name="runsLast5overs" required>
+            <div>
+                <label for="runsLast5overs">Runs in Last 5 Overs</label>
+                <input type="number" id="runsLast5overs" name="runsLast5overs" min="0" required>
+            </div>
 
-            <label for="wicketsLast5overs">Wickets in Last 5 Overs:</label>
-            <input type="number" id="wicketsLast5overs" name="wicketsLast5overs" required>
+            <div>
+                <label for="wicketsLast5overs">Wickets in Last 5 Overs</label>
+                <input type="number" id="wicketsLast5overs" name="wicketsLast5overs" min="0" max="10" required>
+                <span class="error" id="wicketsLast5Error">Please enter a number between 0 and 10</span>
+            </div>
 
-            <button type="submit">Predict</button>
+            <button type="submit">Predict Score</button>
         </form>
     </div>
+
+    <script>
+        // Add input event listeners for real-time validation
+        document.getElementById('overNumber').addEventListener('input', function(e) {
+            const value = parseInt(this.value);
+            const error = document.getElementById('overError');
+
+            if (value < 0 || value > 50 || isNaN(value)) {
+                this.classList.add('invalid');
+                error.classList.add('show');
+                this.value = Math.min(Math.max(value, 0), 50); // Clamp the value
+            } else {
+                this.classList.remove('invalid');
+                error.classList.remove('show');
+            }
+        });
+
+        document.getElementById('wicketsTillOver').addEventListener('input', function(e) {
+            const value = parseInt(this.value);
+            const error = document.getElementById('wicketsError');
+
+            if (value < 0 || value > 10 || isNaN(value)) {
+                this.classList.add('invalid');
+                error.classList.add('show');
+                this.value = Math.min(Math.max(value, 0), 10); // Clamp the value
+            } else {
+                this.classList.remove('invalid');
+                error.classList.remove('show');
+            }
+        });
+
+        document.getElementById('wicketsLast5overs').addEventListener('input', function(e) {
+            const value = parseInt(this.value);
+            const error = document.getElementById('wicketsLast5Error');
+
+            if (value < 0 || value > 10 || isNaN(value)) {
+                this.classList.add('invalid');
+                error.classList.add('show');
+                this.value = Math.min(Math.max(value, 0), 10); // Clamp the value
+            } else {
+                this.classList.remove('invalid');
+                error.classList.remove('show');
+            }
+        });
+
+        function validateForm() {
+            const overNumber = document.getElementById('overNumber');
+            const wicketsTillOver = document.getElementById('wicketsTillOver');
+            const wicketsLast5overs = document.getElementById('wicketsLast5overs');
+
+            let isValid = true;
+
+            // Validate over number
+            if (parseInt(overNumber.value) < 0 || parseInt(overNumber.value) > 50) {
+                overNumber.classList.add('invalid');
+                document.getElementById('overError').classList.add('show');
+                isValid = false;
+            }
+
+            // Validate wickets till over
+            if (parseInt(wicketsTillOver.value) < 0 || parseInt(wicketsTillOver.value) > 10) {
+                wicketsTillOver.classList.add('invalid');
+                document.getElementById('wicketsError').classList.add('show');
+                isValid = false;
+            }
+
+            // Validate wickets in last 5 overs
+            if (parseInt(wicketsLast5overs.value) < 0 || parseInt(wicketsLast5overs.value) > 10) {
+                wicketsLast5overs.classList.add('invalid');
+                document.getElementById('wicketsLast5Error').classList.add('show');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+    </script>
 </body>
 </html>
