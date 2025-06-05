@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from dataclasses import dataclass
 from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 # from src.utils import save_object
 import logging
@@ -35,7 +36,7 @@ class ModelTrainer:
             )
 
             # Replacing RandomForestRegressor with LinearRegression
-            model = LinearRegression()
+            model = RandomForestRegressor()
             model.fit(X_train, y_train)
             logging.info("Model selected for use and fitted on the data.")
 

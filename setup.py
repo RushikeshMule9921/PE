@@ -22,8 +22,8 @@ def get_req(file_path:str)->List[str]:
 setup(
     name='Cricket Score Project',
     version='0.0.1',
-    author='Aditya',
-    author_email='adipusk@gmail.com',
+    author='Rushikesh',
+    author_email='Rushikeh.Mule@iiitb.ac.in',
     packages=find_packages(),
     include_requires=get_req('requirements.txt'),
 )
